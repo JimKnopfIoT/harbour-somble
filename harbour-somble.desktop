@@ -1,0 +1,21 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=harbour-somble
+Exec=harbour-somble
+Name=somble
+
+[X-Sailjail]
+# The app speaks to BlueZ directly on the system bus. The stock Bluetooth
+# permission is not enough: it only lets through broadcasts whose interface is
+# org.bluez.* , while every signal this app depends on —
+# org.freedesktop.DBus.Properties.PropertiesChanged (characteristic values,
+# ServicesResolved) and ...ObjectManager.InterfacesAdded (device discovery) —
+# is a standard D-Bus interface and gets filtered out. Without them the app
+# connects and then simply never hears back.
+#
+# Note that omitting this section entirely does NOT mean "unsandboxed": apps
+# started through invoker then get the default profile and are jailed anyway.
+Sandboxing=Disabled
+OrganizationName=harbour-somble
+ApplicationName=harbour-somble
