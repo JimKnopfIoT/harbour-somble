@@ -94,18 +94,6 @@
         <translation>CSV exportieren</translation>
     </message>
     <message>
-        <source>Chart</source>
-        <translation>Diagramm</translation>
-    </message>
-    <message>
-        <source>Newest %1  ←→  oldest %2   (n=%3)</source>
-        <translation>Neueste %1  ←→  älteste %2   (n=%3)</translation>
-    </message>
-    <message>
-        <source>no data in range — drag the handles</source>
-        <translation>keine Daten im Bereich — Griffe verschieben</translation>
-    </message>
-    <message>
         <source>no data in range</source>
         <translation>keine Daten im Bereich</translation>
     </message>
@@ -132,10 +120,6 @@
     <message>
         <source>%1 reading(s) not shown: taken while the monitor&apos;s clock was unset, so they have no date. Device → Set the monitor&apos;s clock fixes this for future readings.</source>
         <translation>%1 Messwert(e) nicht dargestellt: aufgezeichnet, während die Uhr des Messgeräts nicht gestellt war, daher ohne Datum. Gerät → Uhr des Messgeräts stellen behebt das für künftige Messungen.</translation>
-    </message>
-    <message>
-        <source>Person %1 · %2 reading(s)</source>
-        <translation>Person %1 · %2 Messwerte</translation>
     </message>
     <message>
         <source>P%1 (%2)</source>

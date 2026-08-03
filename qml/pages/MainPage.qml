@@ -290,7 +290,15 @@ Page {
                     MouseArea {
                         anchors.fill: parent
                         anchors.margins: -Theme.paddingMedium   // easier to hit
-                        onClicked: omron.assignPerson(index, personToggle.person === 2 ? 1 : 2)
+                        onClicked: {
+                            // Flip locally and tell C++. Nothing re-reads the
+                            // model here, so the list stays exactly where the
+                            // user is looking; a later reload (download, file
+                            // import) recreates the delegate and its binding.
+                            var p = personToggle.person === 2 ? 1 : 2
+                            personToggle.person = p
+                            omron.assignPerson(index, p)
+                        }
                     }
                 }
             }

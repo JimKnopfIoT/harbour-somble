@@ -11,7 +11,7 @@ QT += dbus quick gui
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 
 # Keep the About page's version tied to the packaged one.
-VERSION = 0.1.0
+VERSION = 0.2.0
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 INCLUDEPATH += src
