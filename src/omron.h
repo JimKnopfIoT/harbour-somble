@@ -29,6 +29,11 @@ class Omron : public QObject
     Q_PROPERTY(QString pairingKey READ pairingKey WRITE setPairingKey NOTIFY pairingKeyChanged)
     // Which person the chart is currently showing (1 or 2). Persisted.
     Q_PROPERTY(int chartPerson READ chartPerson WRITE setChartPerson NOTIFY chartPersonChanged)
+    // Bumped on every P1/P2 assignment. Reassigning does not change the list
+    // itself, and re-emitting measurementsChanged for it would rebuild the
+    // whole model — which scrolls the list back to the top under the user's
+    // finger. Views that care about the split watch this instead.
+    Q_PROPERTY(int personRevision READ personRevision NOTIFY personRevisionChanged)
 
 public:
     explicit Omron(QObject *parent = nullptr);
@@ -45,6 +50,7 @@ public:
     QVariantList deviceInfo() const { return m_deviceInfo; }
     int chartPerson() const { return m_chartPerson; }
     void setChartPerson(int person);
+    int personRevision() const { return m_personRevision; }
     QString pairingKey() const;                 // 32 hex chars
     void setPairingKey(const QString &hex);
 
@@ -98,6 +104,7 @@ signals:
     void deviceInfoChanged();
     void pairingKeyChanged();
     void chartPersonChanged();
+    void personRevisionChanged();
     void deletedCountChanged();
     void actionError(const QString &message);
     void actionInfo(const QString &message);
@@ -127,6 +134,7 @@ private:
     QString m_deviceClock;
     QVariantList m_deviceInfo;
     int m_chartPerson = 1;
+    int m_personRevision = 0;
     QSet<QString> m_suppressed;   // keys of readings deliberately deleted
     QByteArray m_dump;
     QVariantList m_measurements;

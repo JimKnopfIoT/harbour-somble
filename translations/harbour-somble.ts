@@ -94,18 +94,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Chart</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Newest %1  ←→  oldest %2   (n=%3)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>no data in range — drag the handles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>no data in range</source>
         <translation type="unfinished"></translation>
     </message>
@@ -131,10 +119,6 @@
     </message>
     <message>
         <source>%1 reading(s) not shown: taken while the monitor&apos;s clock was unset, so they have no date. Device → Set the monitor&apos;s clock fixes this for future readings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Person %1 · %2 reading(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

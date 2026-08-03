@@ -92,10 +92,15 @@ void Omron::assignPerson(int index, int person)
     if (index < 0 || index >= m_measurements.size())
         return;
     QVariantMap m = m_measurements.at(index).toMap();
-    m.insert(QStringLiteral("person"), (person == 2) ? 2 : 1);
+    const int p = (person == 2) ? 2 : 1;
+    if (m.value(QStringLiteral("person"), 1).toInt() == p)
+        return;
+    m.insert(QStringLiteral("person"), p);
     m_measurements[index] = m;
     saveData();
-    emit measurementsChanged();
+    // Deliberately not measurementsChanged: see personRevision in the header.
+    ++m_personRevision;
+    emit personRevisionChanged();
 }
 
 void Omron::deleteRecord(int index)
