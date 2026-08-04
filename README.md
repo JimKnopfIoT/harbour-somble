@@ -30,8 +30,10 @@ app ships English and German.)*
   merged into a persistent local archive, so it can accumulate far past that.
   Save/load named archive files to back up or combine series.
 * **Chart** — systolic / diastolic / pulse over time, reached by swiping left.
-  Two-handle range slider, tappable points with a detail read-out, and an
-  “optimum” band around 120/80. Mirrored time axis (newest on the left).
+  **Pinch** the chart to zoom the shown period (down to a week), **drag** it to
+  move the window; tappable points with a detail read-out, an “optimum” band
+  around 120/80 and the hypertension thresholds (140 / 160 / 180) marked.
+  Mirrored time axis (newest on the left).
 * **Two people** — the monitor has a single memory and records no user, so each
   reading carries a P1/P2 switch you set yourself. The assignment is stored in
   the archive and survives further downloads; the chart shows one person at a
@@ -81,7 +83,8 @@ powers itself off shortly after every transfer.
 
 4. Press the monitor's connect button so it starts advertising, then pull down
    → **Download from device**. Repeat over time; the archive grows.
-5. Swipe left for the chart; drag the range-slider handles to pick a window.
+5. Swipe left for the chart; pinch it to zoom and drag it sideways to pick a
+   window.
 
 Steps 1–3 are needed again after a factory reset (“Clr”) on the monitor, which
 erases both the pairing key and the clock.
