@@ -32,7 +32,12 @@ Page {
                 text: qsTr(
                     "<p>Reads the measurements stored in an <b>Omron</b> blood-pressure " +
                     "monitor over Bluetooth LE, charts them and exports them. Developed " +
-                    "against an <b>EVOLV (HEM-7600T)</b>.</p>" +
+                    "against an <b>EVOLV (HEM-7600T)</b>; the memory maps of several " +
+                    "related models are built in and picked from what the monitor " +
+                    "reports about itself, or by hand under <i>Device → Monitor " +
+                    "model</i>. Only the EVOLV has been tested on real hardware — on " +
+                    "the others the readings may decode wrongly, which shows up as " +
+                    "missing or absurd values rather than as anything harmful.</p>" +
 
                     "<p>It speaks to <tt>BlueZ</tt> directly over D-Bus rather than through " +
                     "QtBluetooth, whose development headers the Sailfish target does not " +
@@ -41,19 +46,24 @@ Page {
                     "<p><b>Getting started.</b> The monitor has to be bonded once in " +
                     "Settings → Bluetooth — Sailfish does not let an ordinary app drive " +
                     "the pairing itself. Then <i>Pair with monitor</i> here to store this " +
-                    "app's key in it, and <i>Device → Set the monitor's clock</i>.</p>" +
+                    "app's key in it, and <i>Device → Set the monitor's clock</i> where " +
+                    "that is offered.</p>" +
 
                     "<p><b>Set the clock first.</b> The monitor is delivered with its clock " +
                     "unset and reports 2015-01-01 00:00 until it is set — and it stamps " +
                     "every reading from that clock. The timestamp lives inside the record " +
                     "and cannot be corrected afterwards, so readings taken beforehand keep " +
                     "no usable date. They are shown as <i>no date</i> and left out of the " +
-                    "chart rather than plotted on a made-up one.</p>" +
+                    "chart rather than plotted on a made-up one. On models whose clock " +
+                    "location is not confirmed the app refuses to write it at all — set " +
+                    "the date and time on the monitor itself there.</p>" +
 
-                    "<p><b>One memory, two people.</b> The monitor stores no user " +
-                    "information and combines everyone's readings, so the P1/P2 switch on " +
-                    "each reading is your own note. It is kept in the archive and survives " +
-                    "further downloads.</p>")
+                    "<p><b>Two people.</b> Some models keep two separate user memories, " +
+                    "and there the P1/P2 switch on each reading starts out as the memory " +
+                    "the reading came from. Others — the EVOLV among them — store no user " +
+                    "information at all and combine everyone's readings, so there P1/P2 is " +
+                    "purely your own note. Either way it is kept in the archive and " +
+                    "survives further downloads.</p>")
             }
 
             SectionHeader { text: qsTr("Status & responsible use") }
@@ -79,8 +89,12 @@ Page {
                     "<p>The protocol was reconstructed from community reverse-engineering, " +
                     "not from vendor documentation, so decoding errors are possible. The " +
                     "only write this app performs — setting the clock — touches the same " +
-                    "memory region believed to hold the pressure-sensor calibration data. " +
-                    "It is optional and confirmed, but it is your monitor and your risk.</p>")
+                    "memory region believed to hold the pressure-sensor calibration data, " +
+                    "and its address differs per model. It therefore happens only on a " +
+                    "monitor this app recognised, at an address a community driver writes " +
+                    "too, and only after the block read back from that address checks out. " +
+                    "Everything else is read-only. It is still your monitor and your " +
+                    "risk.</p>")
             }
 
             SectionHeader { text: qsTr("Attribution") }

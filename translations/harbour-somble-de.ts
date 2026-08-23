@@ -12,16 +12,8 @@
         <translation>Version %1</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Reads the measurements stored in an &lt;b&gt;Omron&lt;/b&gt; blood-pressure monitor over Bluetooth LE, charts them and exports them. Developed against an &lt;b&gt;EVOLV (HEM-7600T)&lt;/b&gt;.&lt;/p&gt;&lt;p&gt;It speaks to &lt;tt&gt;BlueZ&lt;/tt&gt; directly over D-Bus rather than through QtBluetooth, whose development headers the Sailfish target does not ship.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Getting started.&lt;/b&gt; The monitor has to be bonded once in Settings → Bluetooth — Sailfish does not let an ordinary app drive the pairing itself. Then &lt;i&gt;Pair with monitor&lt;/i&gt; here to store this app&apos;s key in it, and &lt;i&gt;Device → Set the monitor&apos;s clock&lt;/i&gt;.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Set the clock first.&lt;/b&gt; The monitor is delivered with its clock unset and reports 2015-01-01 00:00 until it is set — and it stamps every reading from that clock. The timestamp lives inside the record and cannot be corrected afterwards, so readings taken beforehand keep no usable date. They are shown as &lt;i&gt;no date&lt;/i&gt; and left out of the chart rather than plotted on a made-up one.&lt;/p&gt;&lt;p&gt;&lt;b&gt;One memory, two people.&lt;/b&gt; The monitor stores no user information and combines everyone&apos;s readings, so the P1/P2 switch on each reading is your own note. It is kept in the archive and survives further downloads.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Liest die in einem &lt;b&gt;Omron&lt;/b&gt;-Blutdruckmessgerät gespeicherten Messwerte über Bluetooth LE aus, stellt sie dar und exportiert sie. Entwickelt für ein &lt;b&gt;EVOLV (HEM-7600T)&lt;/b&gt;.&lt;/p&gt;&lt;p&gt;Die App spricht direkt über D-Bus mit &lt;tt&gt;BlueZ&lt;/tt&gt; statt über QtBluetooth, dessen Entwicklungsdateien im Sailfish-Target fehlen.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Erste Schritte.&lt;/b&gt; Das Messgerät muss einmalig in Einstellungen → Bluetooth gekoppelt werden — Sailfish erlaubt einer gewöhnlichen App nicht, die Kopplung selbst durchzuführen. Danach hier &lt;i&gt;Mit Messgerät koppeln&lt;/i&gt;, um den Schlüssel dieser App im Gerät zu hinterlegen, und &lt;i&gt;Gerät → Uhr des Messgeräts stellen&lt;/i&gt;.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Zuerst die Uhr stellen.&lt;/b&gt; Das Messgerät wird mit ungestellter Uhr ausgeliefert und meldet bis dahin 2015-01-01 00:00 — und es stempelt jede Messung mit dieser Uhr. Der Zeitstempel steckt im Datensatz und lässt sich nachträglich nicht korrigieren; vorher vorgenommene Messungen behalten also kein brauchbares Datum. Sie werden als &lt;i&gt;ohne Datum&lt;/i&gt; angezeigt und aus dem Diagramm herausgehalten, statt sie auf ein erfundenes Datum zu setzen.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Ein Speicher, zwei Personen.&lt;/b&gt; Das Messgerät speichert keine Benutzerkennung und vermischt die Messwerte aller Personen. Der P1/P2-Schalter an jeder Messung ist daher deine eigene Zuordnung. Sie wird im Archiv gespeichert und übersteht weitere Downloads.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Status &amp; responsible use</source>
         <translation>Status &amp; verantwortungsvolle Nutzung</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;b&gt;Proof of concept / work in progress.&lt;/b&gt; A hobby project, shared &lt;b&gt;as is&lt;/b&gt; with &lt;b&gt;no warranty&lt;/b&gt; of any kind (see the GPLv3). It may be incomplete, rough around the edges, or change without notice — use it at your own risk.&lt;/p&gt;&lt;p&gt;&lt;b&gt;This is not a medical device and displays no medically validated data.&lt;/b&gt; It only reads back what the monitor already stored. Never use it to diagnose, to judge a course of treatment, or to adjust medication — only a doctor is qualified to do that.&lt;/p&gt;&lt;p&gt;The protocol was reconstructed from community reverse-engineering, not from vendor documentation, so decoding errors are possible. The only write this app performs — setting the clock — touches the same memory region believed to hold the pressure-sensor calibration data. It is optional and confirmed, but it is your monitor and your risk.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;Machbarkeitsnachweis / in Arbeit.&lt;/b&gt; Ein Hobbyprojekt, bereitgestellt &lt;b&gt;wie es ist&lt;/b&gt;, &lt;b&gt;ohne jede Gewährleistung&lt;/b&gt; (siehe GPLv3). Es kann unvollständig oder unfertig sein und sich ohne Ankündigung ändern — die Nutzung erfolgt auf eigene Gefahr.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Dies ist kein Medizinprodukt und zeigt keine medizinisch validierten Daten an.&lt;/b&gt; Die App liest lediglich zurück, was das Messgerät bereits gespeichert hat. Nutze sie niemals zur Diagnose, zur Beurteilung einer Behandlung oder zur Anpassung von Medikamenten — dazu ist nur ein Arzt qualifiziert.&lt;/p&gt;&lt;p&gt;Das Protokoll wurde aus Reverse-Engineering der Community rekonstruiert, nicht aus Herstellerdokumentation; Dekodierfehler sind daher möglich. Der einzige Schreibvorgang dieser App — das Stellen der Uhr — berührt denselben Speicherbereich, in dem vermutlich die Kalibrierdaten des Drucksensors liegen. Er ist optional und bestätigt, aber es ist dein Messgerät und dein Risiko.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Attribution</source>
@@ -30,6 +22,14 @@
     <message>
         <source>&lt;p&gt;The wire protocol follows the community reverse-engineering in &lt;a href=&apos;https://github.com/userx14/omblepy&apos;&gt;omblepy&lt;/a&gt;, cross-checked against &lt;a href=&apos;https://codeberg.org/LazyT/ubpm&apos;&gt;UBPM&lt;/a&gt;. No code was copied from either; both are independent implementations of the same observed protocol.&lt;/p&gt;&lt;p&gt;Licensed GPL-3.0-or-later. Source: &lt;a href=&apos;https://github.com/JimKnopfIoT/harbour-somble&apos;&gt;github.com/JimKnopfIoT/harbour-somble&lt;/a&gt;&lt;/p&gt;&lt;p&gt;“Omron” and “EVOLV” are trademarks of their respective owner. This project is not affiliated with, endorsed by, or supported by Omron.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Das Übertragungsprotokoll folgt dem Reverse-Engineering der Community in &lt;a href=&apos;https://github.com/userx14/omblepy&apos;&gt;omblepy&lt;/a&gt;, gegengeprüft an &lt;a href=&apos;https://codeberg.org/LazyT/ubpm&apos;&gt;UBPM&lt;/a&gt;. Aus keinem der beiden Projekte wurde Quelltext übernommen; beide sind unabhängige Umsetzungen desselben beobachteten Protokolls.&lt;/p&gt;&lt;p&gt;Lizenziert unter GPL-3.0-or-later. Quelltext: &lt;a href=&apos;https://github.com/JimKnopfIoT/harbour-somble&apos;&gt;github.com/JimKnopfIoT/harbour-somble&lt;/a&gt;&lt;/p&gt;&lt;p&gt;„Omron“ und „EVOLV“ sind Marken des jeweiligen Inhabers. Dieses Projekt steht in keiner Verbindung zu Omron und wird von Omron weder unterstützt noch gebilligt.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Reads the measurements stored in an &lt;b&gt;Omron&lt;/b&gt; blood-pressure monitor over Bluetooth LE, charts them and exports them. Developed against an &lt;b&gt;EVOLV (HEM-7600T)&lt;/b&gt;; the memory maps of several related models are built in and picked from what the monitor reports about itself, or by hand under &lt;i&gt;Device → Monitor model&lt;/i&gt;. Only the EVOLV has been tested on real hardware — on the others the readings may decode wrongly, which shows up as missing or absurd values rather than as anything harmful.&lt;/p&gt;&lt;p&gt;It speaks to &lt;tt&gt;BlueZ&lt;/tt&gt; directly over D-Bus rather than through QtBluetooth, whose development headers the Sailfish target does not ship.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Getting started.&lt;/b&gt; The monitor has to be bonded once in Settings → Bluetooth — Sailfish does not let an ordinary app drive the pairing itself. Then &lt;i&gt;Pair with monitor&lt;/i&gt; here to store this app&apos;s key in it, and &lt;i&gt;Device → Set the monitor&apos;s clock&lt;/i&gt; where that is offered.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Set the clock first.&lt;/b&gt; The monitor is delivered with its clock unset and reports 2015-01-01 00:00 until it is set — and it stamps every reading from that clock. The timestamp lives inside the record and cannot be corrected afterwards, so readings taken beforehand keep no usable date. They are shown as &lt;i&gt;no date&lt;/i&gt; and left out of the chart rather than plotted on a made-up one. On models whose clock location is not confirmed the app refuses to write it at all — set the date and time on the monitor itself there.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Two people.&lt;/b&gt; Some models keep two separate user memories, and there the P1/P2 switch on each reading starts out as the memory the reading came from. Others — the EVOLV among them — store no user information at all and combine everyone&apos;s readings, so there P1/P2 is purely your own note. Either way it is kept in the archive and survives further downloads.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Liest die in einem &lt;b&gt;Omron&lt;/b&gt;-Blutdruckmessgerät gespeicherten Messwerte über Bluetooth LE aus, stellt sie dar und exportiert sie. Entwickelt für ein &lt;b&gt;EVOLV (HEM-7600T)&lt;/b&gt;; die Speicherbelegungen mehrerer verwandter Modelle sind eingebaut und werden aus dem gewählt, was das Messgerät über sich meldet — oder von Hand unter &lt;i&gt;Gerät → Gerätemodell&lt;/i&gt;. Nur das EVOLV wurde an echter Hardware getestet; bei den anderen können die Messwerte falsch dekodiert werden, was sich als fehlende oder absurde Werte zeigt, nicht als Schaden.&lt;/p&gt;&lt;p&gt;Die App spricht direkt über D-Bus mit &lt;tt&gt;BlueZ&lt;/tt&gt; statt über QtBluetooth, dessen Entwicklungsdateien im Sailfish-Target fehlen.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Erste Schritte.&lt;/b&gt; Das Messgerät muss einmalig in Einstellungen → Bluetooth gekoppelt werden — Sailfish erlaubt einer gewöhnlichen App nicht, die Kopplung selbst durchzuführen. Danach hier &lt;i&gt;Mit Messgerät koppeln&lt;/i&gt;, um den Schlüssel dieser App im Gerät zu hinterlegen, und &lt;i&gt;Gerät → Uhr des Messgeräts stellen&lt;/i&gt;, sofern das angeboten wird.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Zuerst die Uhr stellen.&lt;/b&gt; Das Messgerät wird mit ungestellter Uhr ausgeliefert und meldet bis dahin 2015-01-01 00:00 — und es stempelt jede Messung mit dieser Uhr. Der Zeitstempel steckt im Datensatz und lässt sich nachträglich nicht korrigieren; vorher vorgenommene Messungen behalten also kein brauchbares Datum. Sie werden als &lt;i&gt;ohne Datum&lt;/i&gt; angezeigt und aus dem Diagramm herausgehalten, statt sie auf ein erfundenes Datum zu setzen. Bei Modellen, deren Uhr-Speicherort nicht bestätigt ist, schreibt die App sie gar nicht — stelle Datum und Uhrzeit dort am Messgerät selbst ein.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Zwei Personen.&lt;/b&gt; Manche Modelle führen zwei getrennte Benutzerspeicher; dort steht der P1/P2-Schalter an jeder Messung zunächst auf dem Speicher, aus dem sie stammt. Andere — darunter das EVOLV — speichern überhaupt keine Benutzerkennung und vermischen die Messwerte aller Personen, dort ist P1/P2 rein deine eigene Zuordnung. So oder so wird sie im Archiv gespeichert und übersteht weitere Downloads.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;b&gt;Proof of concept / work in progress.&lt;/b&gt; A hobby project, shared &lt;b&gt;as is&lt;/b&gt; with &lt;b&gt;no warranty&lt;/b&gt; of any kind (see the GPLv3). It may be incomplete, rough around the edges, or change without notice — use it at your own risk.&lt;/p&gt;&lt;p&gt;&lt;b&gt;This is not a medical device and displays no medically validated data.&lt;/b&gt; It only reads back what the monitor already stored. Never use it to diagnose, to judge a course of treatment, or to adjust medication — only a doctor is qualified to do that.&lt;/p&gt;&lt;p&gt;The protocol was reconstructed from community reverse-engineering, not from vendor documentation, so decoding errors are possible. The only write this app performs — setting the clock — touches the same memory region believed to hold the pressure-sensor calibration data, and its address differs per model. It therefore happens only on a monitor this app recognised, at an address a community driver writes too, and only after the block read back from that address checks out. Everything else is read-only. It is still your monitor and your risk.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;&lt;b&gt;Machbarkeitsnachweis / in Arbeit.&lt;/b&gt; Ein Hobbyprojekt, bereitgestellt &lt;b&gt;wie es ist&lt;/b&gt;, &lt;b&gt;ohne jede Gewährleistung&lt;/b&gt; (siehe GPLv3). Es kann unvollständig oder unfertig sein und sich ohne Ankündigung ändern — die Nutzung erfolgt auf eigene Gefahr.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Dies ist kein Medizinprodukt und zeigt keine medizinisch validierten Daten an.&lt;/b&gt; Die App liest lediglich zurück, was das Messgerät bereits gespeichert hat. Nutze sie niemals zur Diagnose, zur Beurteilung einer Behandlung oder zur Anpassung von Medikamenten — dazu ist nur ein Arzt qualifiziert.&lt;/p&gt;&lt;p&gt;Das Protokoll wurde aus Reverse-Engineering der Community rekonstruiert, nicht aus Herstellerdokumentation; Dekodierfehler sind daher möglich. Der einzige Schreibvorgang dieser App — das Stellen der Uhr — berührt denselben Speicherbereich, in dem vermutlich die Kalibrierdaten des Drucksensors liegen, und seine Adresse ist von Modell zu Modell verschieden. Er findet deshalb nur an einem Messgerät statt, das die App erkannt hat, an einer Adresse, auf die auch ein Community-Treiber schreibt, und erst nachdem der von dort gelesene Block stimmig ist. Alles andere ist rein lesend. Es bleibt dein Messgerät und dein Risiko.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -182,6 +182,42 @@
     <message>
         <source>Pull down and read from the device.</source>
         <translation>Herunterziehen und vom Gerät lesen.</translation>
+    </message>
+    <message>
+        <source>Model</source>
+        <translation>Modell</translation>
+    </message>
+    <message>
+        <source>Monitor model</source>
+        <translation>Gerätemodell</translation>
+    </message>
+    <message>
+        <source>Where the readings and the clock sit in the monitor&apos;s memory differs per model. Leave this automatic unless the monitor is not recognised.</source>
+        <translation>Wo die Messwerte und die Uhr im Speicher des Messgeräts liegen, ist von Modell zu Modell verschieden. Lass das auf automatisch, solange das Gerät erkannt wird.</translation>
+    </message>
+    <message>
+        <source>Identify automatically</source>
+        <translation>Automatisch erkennen</translation>
+    </message>
+    <message>
+        <source>Decoding as: %1</source>
+        <translation>Wird gelesen als: %1</translation>
+    </message>
+    <message>
+        <source>cannot be read on this model</source>
+        <translation>bei diesem Modell nicht lesbar</translation>
+    </message>
+    <message>
+        <source>Setting the clock is the only thing this app would ever write to the monitor, and where the clock is stored is not confirmed for this model — a write to the wrong address could damage it. So somble does not write at all here: please set the date and time on the monitor itself, before taking readings.</source>
+        <translation>Das Stellen der Uhr wäre das Einzige, was diese App jemals auf das Messgerät schreiben würde, und wo die Uhr bei diesem Modell liegt, ist nicht bestätigt — ein Schreibzugriff auf die falsche Adresse könnte es beschädigen. Deshalb schreibt somble hier gar nicht: Stelle Datum und Uhrzeit bitte am Messgerät selbst ein, bevor du misst.</translation>
+    </message>
+    <message>
+        <source>not read yet</source>
+        <translation>noch nicht gelesen</translation>
+    </message>
+    <message>
+        <source>Whether the clock can be set depends on the model, and the monitor has not been read yet. Read from the device once and this will say.</source>
+        <translation>Ob die Uhr gestellt werden kann, hängt vom Modell ab, und das Messgerät wurde noch nicht gelesen. Lies einmal vom Gerät, dann steht es hier.</translation>
     </message>
 </context>
 <context>
@@ -407,6 +443,22 @@
         <source>Deleted %1 reading(s). They will not come back on the next download.</source>
         <translation>%1 Messwert(e) gelöscht. Sie kommen beim nächsten Download nicht zurück.</translation>
     </message>
+    <message>
+        <source>This monitor did not identify itself as a model somble knows (%1). The readings below may be nonsense — pick the model on the Device page.</source>
+        <translation>Dieses Messgerät hat sich nicht als ein Modell zu erkennen gegeben, das somble kennt (%1). Die Messwerte unten können Unsinn sein — wähle das Modell auf der Geräteseite aus.</translation>
+    </message>
+    <message>
+        <source>Unknown monitor model: %1</source>
+        <translation>Unbekanntes Gerätemodell: %1</translation>
+    </message>
+    <message>
+        <source>unrecognised model</source>
+        <translation>nicht erkanntes Modell</translation>
+    </message>
+    <message>
+        <source>not identified yet</source>
+        <translation>noch nicht bestimmt</translation>
+    </message>
 </context>
 <context>
     <name>OmronProtocol</name>
@@ -525,6 +577,62 @@
     <message>
         <source>Battery</source>
         <translation>Batterie</translation>
+    </message>
+    <message>
+        <source>EVOLV (HEM-7600T)</source>
+        <translation>EVOLV (HEM-7600T)</translation>
+    </message>
+    <message>
+        <source>M700 Intelli IT (HEM-7322T)</source>
+        <translation>M700 Intelli IT (HEM-7322T)</translation>
+    </message>
+    <message>
+        <source>RS7 Intelli IT (HEM-6232T)</source>
+        <translation>RS7 Intelli IT (HEM-6232T)</translation>
+    </message>
+    <message>
+        <source>Complete (HEM-7530T)</source>
+        <translation>Complete (HEM-7530T)</translation>
+    </message>
+    <message>
+        <source>M500 / M7 Intelli IT (HEM-7361T)</source>
+        <translation>M500 / M7 Intelli IT (HEM-7361T)</translation>
+    </message>
+    <message>
+        <source>BP7450 (HEM-7342T)</source>
+        <translation>BP7450 (HEM-7342T)</translation>
+    </message>
+    <message>
+        <source>M400 / X4 smart (HEM-7155T)</source>
+        <translation>M400 / X4 smart (HEM-7155T)</translation>
+    </message>
+    <message>
+        <source>BP7250 (HEM-7150T)</source>
+        <translation>BP7250 (HEM-7150T)</translation>
+    </message>
+    <message>
+        <source>unrecognised model</source>
+        <translation>nicht erkanntes Modell</translation>
+    </message>
+    <message>
+        <source>Record layout</source>
+        <translation>Datenformat</translation>
+    </message>
+    <message>
+        <source>This monitor did not identify itself as a model somble knows, so it does not know where the clock is stored. Set the date and time on the monitor itself, or pick the model by hand on the Device page.</source>
+        <translation>Dieses Messgerät hat sich nicht als ein Modell zu erkennen gegeben, das somble kennt — somble weiß also nicht, wo die Uhr gespeichert ist. Stelle Datum und Uhrzeit am Messgerät selbst ein oder wähle das Modell von Hand auf der Geräteseite.</translation>
+    </message>
+    <message>
+        <source>Setting the clock is not supported on the %1: the place it is stored has not been confirmed for this model, and writing to the wrong address could damage it. Please set the date and time on the monitor itself.</source>
+        <translation>Das Stellen der Uhr wird beim %1 nicht unterstützt: Wo sie gespeichert ist, ist für dieses Modell nicht bestätigt, und ein Schreibzugriff auf die falsche Adresse könnte es beschädigen. Stelle Datum und Uhrzeit bitte am Messgerät selbst ein.</translation>
+    </message>
+    <message>
+        <source>The monitor&apos;s clock did not read back the way this model stores it, so somble did not write to it. Please set the date and time on the monitor itself.</source>
+        <translation>Die Uhr des Messgeräts hat sich nicht so gelesen, wie dieses Modell sie ablegt — somble hat deshalb nicht geschrieben. Stelle Datum und Uhrzeit bitte am Messgerät selbst ein.</translation>
+    </message>
+    <message>
+        <source>The monitor did not confirm the clock write.</source>
+        <translation>Das Messgerät hat das Stellen der Uhr nicht bestätigt.</translation>
     </message>
 </context>
 <context>
