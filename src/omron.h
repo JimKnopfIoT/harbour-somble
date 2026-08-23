@@ -27,6 +27,20 @@ class Omron : public QObject
     Q_PROPERTY(QString deviceClock READ deviceClock NOTIFY deviceClockChanged)
     Q_PROPERTY(QVariantList deviceInfo READ deviceInfo NOTIFY deviceInfoChanged)
     Q_PROPERTY(QString pairingKey READ pairingKey WRITE setPairingKey NOTIFY pairingKeyChanged)
+    // Monitor model. "" means identify it from what the monitor reports;
+    // anything else is a slug from knownModels and pins the EEPROM map.
+    Q_PROPERTY(QString modelId READ modelId WRITE setModelId NOTIFY modelChanged)
+    // What the app is currently decoding with, for display.
+    Q_PROPERTY(QString modelLabel READ modelLabel NOTIFY modelChanged)
+    // Whether the clock can be set on the model in force. False on an
+    // unidentified monitor and on models whose clock offset is unconfirmed.
+    Q_PROPERTY(bool clockWritable READ clockWritable NOTIFY modelChanged)
+    // Whether a model is known at all — pinned, or identified by some earlier
+    // session. False only before the monitor has ever been read, which is a
+    // different thing from "this model cannot do it".
+    Q_PROPERTY(bool modelIdentified READ modelIdentified NOTIFY modelChanged)
+    // [{id, label}] for the model picker; the "identify it" entry is not in it.
+    Q_PROPERTY(QVariantList knownModels READ knownModels CONSTANT)
     // Which person the chart is currently showing (1 or 2). Persisted.
     Q_PROPERTY(int chartPerson READ chartPerson WRITE setChartPerson NOTIFY chartPersonChanged)
     // Bumped on every P1/P2 assignment. Reassigning does not change the list
@@ -53,6 +67,12 @@ public:
     int personRevision() const { return m_personRevision; }
     QString pairingKey() const;                 // 32 hex chars
     void setPairingKey(const QString &hex);
+    QString modelId() const { return m_modelId; }
+    void setModelId(const QString &id);
+    QString modelLabel() const;
+    bool clockWritable() const;
+    bool modelIdentified() const;
+    QVariantList knownModels() const;
 
     // Read the stored measurements. The monitor must already know our key.
     Q_INVOKABLE void download();
@@ -103,6 +123,7 @@ signals:
     void deviceClockChanged();
     void deviceInfoChanged();
     void pairingKeyChanged();
+    void modelChanged();
     void chartPersonChanged();
     void personRevisionChanged();
     void deletedCountChanged();
@@ -133,6 +154,8 @@ private:
     QString m_rawHex;
     QString m_deviceClock;
     QVariantList m_deviceInfo;
+    QString m_modelId;              // "" -> identify from the monitor
+    QString m_detectedId;           // what the last session settled on
     int m_chartPerson = 1;
     int m_personRevision = 0;
     QSet<QString> m_suppressed;   // keys of readings deliberately deleted

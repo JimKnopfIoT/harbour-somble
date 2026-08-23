@@ -24,24 +24,31 @@ app ships English and German.)*
 
 ## What works
 
-* **Download over Bluetooth LE** — reads the monitor's whole 100-slot ring
-  buffer in one session.
-* **Growing archive** — the monitor only keeps 100 readings; each download is
-  merged into a persistent local archive, so it can accumulate far past that.
-  Save/load named archive files to back up or combine series.
+* **Download over Bluetooth LE** — reads the monitor's whole ring buffer in one
+  session, both user banks on models that have two.
+* **Several monitor models** — the EEPROM maps of the EVOLV (HEM-7600T), M700
+  Intelli IT, RS7 Intelli IT, Complete, M500/M7 Intelli IT, BP7450, M400/X4
+  smart and BP7250 are built in. The model is identified from what the monitor
+  reports about itself, or picked by hand under *Device → Monitor model*. Only
+  the EVOLV has been tested on hardware — see *Requirements*.
+* **Growing archive** — the monitor only keeps a hundred-odd readings; each
+  download is merged into a persistent local archive, so it can accumulate far
+  past that. Save/load named archive files to back up or combine series.
 * **Chart** — systolic / diastolic / pulse over time, reached by swiping left.
   **Pinch** the chart to zoom the shown period (down to a week), **drag** it to
   move the window; tappable points with a detail read-out, an “optimum” band
   around 120/80 and the hypertension thresholds (140 / 160 / 180) marked.
   Mirrored time axis (newest on the left).
-* **Two people** — the monitor has a single memory and records no user, so each
-  reading carries a P1/P2 switch you set yourself. The assignment is stored in
-  the archive and survives further downloads; the chart shows one person at a
-  time.
+* **Two people** — each reading carries a P1/P2 switch. On models with two user
+  memories it starts out as the memory the reading came from; on models that
+  record no user at all (the EVOLV among them) it is purely your own note. The
+  assignment is stored in the archive and survives further downloads; the chart
+  shows one person at a time.
 * **Device page** — manufacturer, model, serial, hardware/firmware/software
   revision, battery level, Bluetooth address and negotiated MTU, plus the
   monitor's own clock.
-* **Clock** — set the monitor's clock; see the caveat below.
+* **Clock** — set the monitor's clock, on models where its location in memory is
+  confirmed; see the caveat below.
 * **Deleting** — remove a single reading or all of them. Deletions are
   remembered, so a later download does not resurrect them.
 * **Exports** — CSV, and the chart as an image (JPG).
@@ -57,8 +64,16 @@ powers itself off shortly after every transfer.
 
 * Sailfish OS (aarch64; developed/tested on 5.x).
 * An Omron monitor speaking the vendor GATT service
-  `ecbe3980-c9a2-11e1-b1bd-0002a5d5c51b`. Developed against an **EVOLV
-  (HEM-7600T)**; the record layout and memory map are that model's.
+  `ecbe3980-c9a2-11e1-b1bd-0002a5d5c51b`. Developed and tested against an
+  **EVOLV (HEM-7600T)**. The maps for the other models listed above were
+  translated from the community reverse-engineering in
+  [omblepy](https://github.com/userx14/omblepy) and have **not** been tested on
+  hardware here — on those, readings may decode wrongly, which shows up as
+  missing or absurd values. If a monitor is not recognised automatically, pick
+  it under *Device → Monitor model*; an unrecognised monitor is read with the
+  EVOLV geometry and never written to.
+  Not supported: the HEM-7380T1 (X7 Smart AFib) and HEM-7377T1 (BP5360), which
+  use a different GATT service with a single channel and no unlock step.
 * The monitor bonded once through Settings → Bluetooth. The app cannot do this
   itself — Sailfish does not let an ordinary application call BlueZ's
   `Adapter1.RemoveDevice`, `AgentManager1.RegisterAgent` or `Device1.Pair`.
@@ -76,8 +91,10 @@ powers itself off shortly after every transfer.
    pairing mode. This stores somble's own 16-byte key in the monitor (see
    below) and nothing else. The Bluetooth link is left open afterwards, so the
    next step needs no further button press.
-3. **Device → Set the monitor's clock.** Do this before your first real
-   measurement — see the section below for why.
+3. **Device → Set the monitor's clock**, where the menu entry is offered. Do
+   this before your first real measurement — see the section below for why. On
+   models whose clock location is unconfirmed the entry is absent and you set
+   the date and time on the monitor itself.
 
 ### Every time
 
@@ -119,10 +136,13 @@ unset**, within the same session — the monitor powers off far too quickly to
 start a second one. That still only helps the readings taken afterwards.
 
 Writing the clock is the **only** thing somble ever writes to the monitor's
-memory. In particular it never resets the monitor's unread-record counter: it
-does not need to (every download reads the full ring buffer), and that counter
-lives in the same memory region as what is believed to be the pressure-sensor
-calibration data.
+memory, and its address differs per model. Two things have to hold before
+anything is sent: the model must be one where a community driver writes that
+same address, and the block read back from it must verify its own checksum. If
+either fails, somble says so and writes nothing. In particular it never resets
+the monitor's unread-record counter: it does not need to (every download reads
+the full ring buffer), and that counter lives in the same memory region as what
+is believed to be the pressure-sensor calibration data.
 
 Note that a factory reset (“Clr”) on the monitor clears the clock and the
 pairing key but, at least on the unit tested here, leaves the stored
@@ -177,8 +197,9 @@ is qualified to do that.
 The protocol was reconstructed from community reverse-engineering, not from
 vendor documentation. Decoding errors are possible, and the only write it
 performs — setting the monitor's clock — touches the same memory region that is
-believed to hold the pressure-sensor calibration data. That write is optional
-and confirmed, but it is your monitor and your risk.
+believed to hold the pressure-sensor calibration data, at an address that
+differs per model. That write is optional, guarded twice over (see above), and
+confirmed only on the EVOLV — but it is your monitor and your risk.
 
 somble is not affiliated with, endorsed by, or supported by Omron.
 

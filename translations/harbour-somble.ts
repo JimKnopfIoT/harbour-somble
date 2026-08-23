@@ -12,15 +12,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;p&gt;Reads the measurements stored in an &lt;b&gt;Omron&lt;/b&gt; blood-pressure monitor over Bluetooth LE, charts them and exports them. Developed against an &lt;b&gt;EVOLV (HEM-7600T)&lt;/b&gt;.&lt;/p&gt;&lt;p&gt;It speaks to &lt;tt&gt;BlueZ&lt;/tt&gt; directly over D-Bus rather than through QtBluetooth, whose development headers the Sailfish target does not ship.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Getting started.&lt;/b&gt; The monitor has to be bonded once in Settings → Bluetooth — Sailfish does not let an ordinary app drive the pairing itself. Then &lt;i&gt;Pair with monitor&lt;/i&gt; here to store this app&apos;s key in it, and &lt;i&gt;Device → Set the monitor&apos;s clock&lt;/i&gt;.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Set the clock first.&lt;/b&gt; The monitor is delivered with its clock unset and reports 2015-01-01 00:00 until it is set — and it stamps every reading from that clock. The timestamp lives inside the record and cannot be corrected afterwards, so readings taken beforehand keep no usable date. They are shown as &lt;i&gt;no date&lt;/i&gt; and left out of the chart rather than plotted on a made-up one.&lt;/p&gt;&lt;p&gt;&lt;b&gt;One memory, two people.&lt;/b&gt; The monitor stores no user information and combines everyone&apos;s readings, so the P1/P2 switch on each reading is your own note. It is kept in the archive and survives further downloads.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Status &amp; responsible use</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;b&gt;Proof of concept / work in progress.&lt;/b&gt; A hobby project, shared &lt;b&gt;as is&lt;/b&gt; with &lt;b&gt;no warranty&lt;/b&gt; of any kind (see the GPLv3). It may be incomplete, rough around the edges, or change without notice — use it at your own risk.&lt;/p&gt;&lt;p&gt;&lt;b&gt;This is not a medical device and displays no medically validated data.&lt;/b&gt; It only reads back what the monitor already stored. Never use it to diagnose, to judge a course of treatment, or to adjust medication — only a doctor is qualified to do that.&lt;/p&gt;&lt;p&gt;The protocol was reconstructed from community reverse-engineering, not from vendor documentation, so decoding errors are possible. The only write this app performs — setting the clock — touches the same memory region believed to hold the pressure-sensor calibration data. It is optional and confirmed, but it is your monitor and your risk.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29,6 +21,14 @@
     </message>
     <message>
         <source>&lt;p&gt;The wire protocol follows the community reverse-engineering in &lt;a href=&apos;https://github.com/userx14/omblepy&apos;&gt;omblepy&lt;/a&gt;, cross-checked against &lt;a href=&apos;https://codeberg.org/LazyT/ubpm&apos;&gt;UBPM&lt;/a&gt;. No code was copied from either; both are independent implementations of the same observed protocol.&lt;/p&gt;&lt;p&gt;Licensed GPL-3.0-or-later. Source: &lt;a href=&apos;https://github.com/JimKnopfIoT/harbour-somble&apos;&gt;github.com/JimKnopfIoT/harbour-somble&lt;/a&gt;&lt;/p&gt;&lt;p&gt;“Omron” and “EVOLV” are trademarks of their respective owner. This project is not affiliated with, endorsed by, or supported by Omron.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Reads the measurements stored in an &lt;b&gt;Omron&lt;/b&gt; blood-pressure monitor over Bluetooth LE, charts them and exports them. Developed against an &lt;b&gt;EVOLV (HEM-7600T)&lt;/b&gt;; the memory maps of several related models are built in and picked from what the monitor reports about itself, or by hand under &lt;i&gt;Device → Monitor model&lt;/i&gt;. Only the EVOLV has been tested on real hardware — on the others the readings may decode wrongly, which shows up as missing or absurd values rather than as anything harmful.&lt;/p&gt;&lt;p&gt;It speaks to &lt;tt&gt;BlueZ&lt;/tt&gt; directly over D-Bus rather than through QtBluetooth, whose development headers the Sailfish target does not ship.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Getting started.&lt;/b&gt; The monitor has to be bonded once in Settings → Bluetooth — Sailfish does not let an ordinary app drive the pairing itself. Then &lt;i&gt;Pair with monitor&lt;/i&gt; here to store this app&apos;s key in it, and &lt;i&gt;Device → Set the monitor&apos;s clock&lt;/i&gt; where that is offered.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Set the clock first.&lt;/b&gt; The monitor is delivered with its clock unset and reports 2015-01-01 00:00 until it is set — and it stamps every reading from that clock. The timestamp lives inside the record and cannot be corrected afterwards, so readings taken beforehand keep no usable date. They are shown as &lt;i&gt;no date&lt;/i&gt; and left out of the chart rather than plotted on a made-up one. On models whose clock location is not confirmed the app refuses to write it at all — set the date and time on the monitor itself there.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Two people.&lt;/b&gt; Some models keep two separate user memories, and there the P1/P2 switch on each reading starts out as the memory the reading came from. Others — the EVOLV among them — store no user information at all and combine everyone&apos;s readings, so there P1/P2 is purely your own note. Either way it is kept in the archive and survives further downloads.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;b&gt;Proof of concept / work in progress.&lt;/b&gt; A hobby project, shared &lt;b&gt;as is&lt;/b&gt; with &lt;b&gt;no warranty&lt;/b&gt; of any kind (see the GPLv3). It may be incomplete, rough around the edges, or change without notice — use it at your own risk.&lt;/p&gt;&lt;p&gt;&lt;b&gt;This is not a medical device and displays no medically validated data.&lt;/b&gt; It only reads back what the monitor already stored. Never use it to diagnose, to judge a course of treatment, or to adjust medication — only a doctor is qualified to do that.&lt;/p&gt;&lt;p&gt;The protocol was reconstructed from community reverse-engineering, not from vendor documentation, so decoding errors are possible. The only write this app performs — setting the clock — touches the same memory region believed to hold the pressure-sensor calibration data, and its address differs per model. It therefore happens only on a monitor this app recognised, at an address a community driver writes too, and only after the block read back from that address checks out. Everything else is read-only. It is still your monitor and your risk.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -181,6 +181,42 @@
     </message>
     <message>
         <source>Pull down and read from the device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monitor model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Where the readings and the clock sit in the monitor&apos;s memory differs per model. Leave this automatic unless the monitor is not recognised.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Identify automatically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Decoding as: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cannot be read on this model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setting the clock is the only thing this app would ever write to the monitor, and where the clock is stored is not confirmed for this model — a write to the wrong address could damage it. So somble does not write at all here: please set the date and time on the monitor itself, before taking readings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>not read yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether the clock can be set depends on the model, and the monitor has not been read yet. Read from the device once and this will say.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -406,6 +442,22 @@
         <source>Deleted %1 reading(s). They will not come back on the next download.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This monitor did not identify itself as a model somble knows (%1). The readings below may be nonsense — pick the model on the Device page.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown monitor model: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unrecognised model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>not identified yet</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OmronProtocol</name>
@@ -523,6 +575,62 @@
     </message>
     <message>
         <source>Battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EVOLV (HEM-7600T)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M700 Intelli IT (HEM-7322T)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RS7 Intelli IT (HEM-6232T)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Complete (HEM-7530T)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M500 / M7 Intelli IT (HEM-7361T)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>BP7450 (HEM-7342T)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M400 / X4 smart (HEM-7155T)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>BP7250 (HEM-7150T)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unrecognised model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Record layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This monitor did not identify itself as a model somble knows, so it does not know where the clock is stored. Set the date and time on the monitor itself, or pick the model by hand on the Device page.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setting the clock is not supported on the %1: the place it is stored has not been confirmed for this model, and writing to the wrong address could damage it. Please set the date and time on the monitor itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The monitor&apos;s clock did not read back the way this model stores it, so somble did not write to it. Please set the date and time on the monitor itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The monitor did not confirm the clock write.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

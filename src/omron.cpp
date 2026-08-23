@@ -1,6 +1,7 @@
 #include "omron.h"
 #include "omronprotocol.h"
 
+#include <QCoreApplication>
 #include <QDateTime>
 #include <QDir>
 #include <QFile>
@@ -35,6 +36,26 @@ Omron::Omron(QObject *parent)
         setBusy(false);
         setStatus(tr("Clock set."));
         emit actionInfo(tr("The monitor's clock is now set."));
+    });
+    connect(m_proto, &OmronProtocol::profileResolved, this,
+            [this](const QString &id, const QString &label, bool detected) {
+        if (m_detectedId != id) {
+            m_detectedId = id;
+            // Remember it: the model does not change between runs, and without
+            // this every restart forgets the monitor and hides everything that
+            // depends on knowing it until the next download.
+            saveSettings();
+        }
+        emit modelChanged();
+        // Only worth saying out loud when the app had to guess and could not.
+        if (!detected)
+            emit actionInfo(tr("This monitor did not identify itself as a model "
+                               "somble knows (%1). The readings below may be "
+                               "nonsense — pick the model on the Device page.")
+                                .arg(label));
+    });
+    connect(m_proto, &OmronProtocol::clockWriteRefused, this, [this](const QString &why) {
+        emit actionError(why);
     });
     connect(m_proto, &OmronProtocol::deviceInfo, this, [this](const QVariantList &rows) {
         m_deviceInfo = rows;
@@ -75,6 +96,67 @@ void Omron::setPairingKey(const QString &hex)
     m_proto->setUnlockKey(key);
     saveSettings();
     emit pairingKeyChanged();
+}
+
+// --- monitor model ---------------------------------------------------------
+
+void Omron::setModelId(const QString &id)
+{
+    // "" and "auto" both mean: work it out from the monitor.
+    const QString wanted = (id == QLatin1String("auto")) ? QString() : id;
+    if (!wanted.isEmpty() && !OmronProtocol::profileById(wanted)) {
+        emit actionError(tr("Unknown monitor model: %1").arg(id));
+        return;
+    }
+    if (m_modelId == wanted)
+        return;
+    m_modelId = wanted;
+    m_proto->setModelOverride(m_modelId);
+    // A pinned model decides the record layout, so whatever was decoded with
+    // the old one is not to be trusted. The raw capture survives — reparse()
+    // on the raw page re-runs it through the new layout.
+    m_detectedId = m_modelId;
+    saveSettings();
+    emit modelChanged();
+}
+
+QString Omron::modelLabel() const
+{
+    const QString id = m_modelId.isEmpty() ? m_detectedId : m_modelId;
+    if (const DeviceProfile *p = OmronProtocol::profileById(id))
+        return QCoreApplication::translate("OmronProtocol", p->label);
+    if (!m_detectedId.isEmpty())        // a session ran and matched nothing
+        return tr("unrecognised model");
+    return tr("not identified yet");
+}
+
+bool Omron::clockWritable() const
+{
+    const QString id = m_modelId.isEmpty() ? m_detectedId : m_modelId;
+    const DeviceProfile *p = OmronProtocol::profileById(id);
+    return p && p->clockWritable;
+}
+
+bool Omron::modelIdentified() const
+{
+    const QString id = m_modelId.isEmpty() ? m_detectedId : m_modelId;
+    return OmronProtocol::profileById(id) != nullptr
+        || !m_detectedId.isEmpty();             // a session ran and matched nothing
+}
+
+QVariantList Omron::knownModels() const
+{
+    QVariantList out;
+    const QList<const DeviceProfile *> profiles = OmronProtocol::knownProfiles();
+    for (const DeviceProfile *p : profiles) {
+        QVariantMap m;
+        m.insert(QStringLiteral("id"), QString::fromLatin1(p->id));
+        m.insert(QStringLiteral("label"),
+                 QCoreApplication::translate("OmronProtocol", p->label));
+        m.insert(QStringLiteral("clockWritable"), p->clockWritable);
+        out.append(m);
+    }
+    return out;
 }
 
 void Omron::setChartPerson(int person)
@@ -230,7 +312,8 @@ void Omron::reparse()
         emit actionError(tr("Nothing captured yet."));
         return;
     }
-    const int added = mergeRecords(OmronProtocol::parseRecords(m_dump));
+    const QString id = m_modelId.isEmpty() ? m_detectedId : m_modelId;
+    const int added = mergeRecords(OmronProtocol::parseRecords(m_dump, id));
     saveData();
     emit actionInfo(tr("Re-parsed: +%1 (%2 total)").arg(added).arg(m_measurements.size()));
 }
@@ -239,10 +322,13 @@ void Omron::rebuildRawHex()
 {
     QString hex;
     if (!m_dump.isEmpty()) {
+        const QString id = m_modelId.isEmpty() ? m_detectedId : m_modelId;
+        const DeviceProfile *p = OmronProtocol::profileById(id);
+        const int recSize = p ? p->recordSize() : OmronProtocol::fallbackProfile()->recordSize();
         hex += tr("--- EEPROM dump (%1 bytes, %2-byte records) ---\n")
-                   .arg(m_dump.size()).arg(14);
+                   .arg(m_dump.size()).arg(recSize);
         for (int i = 0; i < m_dump.size(); ++i) {
-            if (i && i % 14 == 0) hex += QLatin1Char('\n');
+            if (i && i % recSize == 0) hex += QLatin1Char('\n');
             else if (i) hex += QLatin1Char(' ');
             hex += QString::asprintf("%02X", quint8(m_dump.at(i)));
         }
@@ -355,6 +441,8 @@ void Omron::saveSettings() const
     obj.insert(QStringLiteral("pairingKey"),
                QString::fromLatin1(m_proto->unlockKey().toHex()));
     obj.insert(QStringLiteral("chartPerson"), m_chartPerson);
+    obj.insert(QStringLiteral("modelId"), m_modelId);
+    obj.insert(QStringLiteral("detectedModelId"), m_detectedId);
     QJsonArray dropped;
     for (const QString &k : m_suppressed)
         dropped.append(k);
@@ -374,6 +462,14 @@ void Omron::loadSettings()
         obj.value(QStringLiteral("pairingKey")).toString().toLatin1());
     if (key.size() == 16)
         m_proto->setUnlockKey(key);
+    m_modelId = obj.value(QStringLiteral("modelId")).toString();
+    if (!m_modelId.isEmpty() && !OmronProtocol::profileById(m_modelId))
+        m_modelId.clear();                       // a slug from a newer build
+    m_proto->setModelOverride(m_modelId);
+    m_detectedId = obj.value(QStringLiteral("detectedModelId")).toString();
+    if (!m_detectedId.isEmpty() && m_detectedId != QLatin1String("unknown")
+        && !OmronProtocol::profileById(m_detectedId))
+        m_detectedId.clear();
     const int p = obj.value(QStringLiteral("chartPerson")).toInt(1);
     m_chartPerson = (p == 2) ? 2 : 1;
     m_suppressed.clear();
