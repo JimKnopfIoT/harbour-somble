@@ -203,7 +203,7 @@ confirmed only on the EVOLV — but it is your monitor and your risk.
 
 somble is not affiliated with, endorsed by, or supported by Omron.
 
-AI assisted development
+LLM assisted development
 
 ## Attribution & licence
 
